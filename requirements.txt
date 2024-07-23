@@ -1,0 +1,7 @@
+PyPDF2
+langchain
+langchain_community
+langchain_text_splitters
+langchain_groq
+flask
+python-dotenv

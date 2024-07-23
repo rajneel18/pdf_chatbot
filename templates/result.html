@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ask Questions</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Ask Questions about {{ filename }}</h1>
+    <form id="questionForm">
+        <input type="text" id="question" name="question" required>
+        <input type="hidden" id="filename" name="filename" value="{{ filename }}">
+        <button type="submit">Ask</button>
+    </form>
+    <div id="answer"></div>
+
+    <script>
+        document.getElementById('questionForm').onsubmit = function(e) {
+            e.preventDefault();
+            fetch('/ask', {
+                method: 'POST',
+                body: new FormData(this)
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('answer').innerHTML = data.answer;
+            });
+        };
+    </script>
+</body>
+</html>
