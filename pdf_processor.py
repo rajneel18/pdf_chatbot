@@ -18,11 +18,11 @@ def process_pdf(file_path):
     chunks = splitter.split_documents(doc)
     return chunks
 
-def answer_question(question, filename):
-    chunks = process_pdf(os.path.join('uploads', filename))
+def answer_question(question, file_path):
+    chunks = process_pdf(file_path)
     
     llm = ChatGroq(
-        model="llama3-70b-8192",
+        model="llama-3.3-70b-versatile",
         temperature=0.7,
         api_key=GROQ_API_KEY
     )
@@ -45,8 +45,8 @@ def answer_question(question, filename):
 
 
 
-def answer_question(question, filename):
-    chunks = process_pdf(os.path.join('uploads', filename))
+def answer_question(question, file_path):
+    chunks = process_pdf(file_path)
     
     max_retries = 3
     retry_delay = 120  # 2 minutes
@@ -54,7 +54,7 @@ def answer_question(question, filename):
     for attempt in range(max_retries):
         try:
             llm = ChatGroq(
-                model="llama3-70b-8192",
+                model="llama-3.3-70b-versatile",
                 temperature=0.7,
                 groq_api_key=GROQ_API_KEY
             )
